@@ -1,0 +1,375 @@
+{
+  "info": {
+    "name": "Azure OpenAI - LAB 1",
+    "description": "Collection per il primo laboratorio Azure OpenAI del Corso Modulo 7",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Chat Completion - Simple",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "api-key",
+            "value": "{{azure_openai_key}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Ciao! Spiegami in una frase cos'è Azure OpenAI.\"\n    }\n  ],\n  \"max_tokens\": 100,\n  \"temperature\": 0.7\n}"
+        },
+        "url": {
+          "raw": "{{azure_openai_endpoint}}/openai/deployments/{{deployment_name}}/chat/completions?api-version={{api_version}}",
+          "host": [
+            "{{azure_openai_endpoint}}"
+          ],
+          "path": [
+            "openai",
+            "deployments",
+            "{{deployment_name}}",
+            "chat",
+            "completions"
+          ],
+          "query": [
+            {
+              "key": "api-version",
+              "value": "{{api_version}}"
+            }
+          ]
+        },
+        "description": "Chiamata base per testare la connessione ad Azure OpenAI"
+      },
+      "response": []
+    },
+    {
+      "name": "2. Chat - Temperature Low (0.1)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "api-key",
+            "value": "{{azure_openai_key}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Scrivi uno slogan per una pizzeria napoletana\"\n    }\n  ],\n  \"max_tokens\": 50,\n  \"temperature\": 0.1\n}"
+        },
+        "url": {
+          "raw": "{{azure_openai_endpoint}}/openai/deployments/{{deployment_name}}/chat/completions?api-version={{api_version}}",
+          "host": [
+            "{{azure_openai_endpoint}}"
+          ],
+          "path": [
+            "openai",
+            "deployments",
+            "{{deployment_name}}",
+            "chat",
+            "completions"
+          ],
+          "query": [
+            {
+              "key": "api-version",
+              "value": "{{api_version}}"
+            }
+          ]
+        },
+        "description": "Test con temperature bassa (risposte deterministiche)"
+      },
+      "response": []
+    },
+    {
+      "name": "3. Chat - Temperature High (1.8)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "api-key",
+            "value": "{{azure_openai_key}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Scrivi uno slogan per una pizzeria napoletana\"\n    }\n  ],\n  \"max_tokens\": 50,\n  \"temperature\": 1.8\n}"
+        },
+        "url": {
+          "raw": "{{azure_openai_endpoint}}/openai/deployments/{{deployment_name}}/chat/completions?api-version={{api_version}}",
+          "host": [
+            "{{azure_openai_endpoint}}"
+          ],
+          "path": [
+            "openai",
+            "deployments",
+            "{{deployment_name}}",
+            "chat",
+            "completions"
+          ],
+          "query": [
+            {
+              "key": "api-version",
+              "value": "{{api_version}}"
+            }
+          ]
+        },
+        "description": "Test con temperature alta (risposte creative)"
+      },
+      "response": []
+    },
+    {
+      "name": "4. Chat - Max Tokens Test",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "api-key",
+            "value": "{{azure_openai_key}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Spiega dettagliatamente cos'è un'API REST e come funziona\"\n    }\n  ],\n  \"max_tokens\": 20,\n  \"temperature\": 0.7\n}"
+        },
+        "url": {
+          "raw": "{{azure_openai_endpoint}}/openai/deployments/{{deployment_name}}/chat/completions?api-version={{api_version}}",
+          "host": [
+            "{{azure_openai_endpoint}}"
+          ],
+          "path": [
+            "openai",
+            "deployments",
+            "{{deployment_name}}",
+            "chat",
+            "completions"
+          ],
+          "query": [
+            {
+              "key": "api-version",
+              "value": "{{api_version}}"
+            }
+          ]
+        },
+        "description": "Test con max_tokens basso per vedere il troncamento. Nota il finish_reason='length'"
+      },
+      "response": []
+    },
+    {
+      "name": "5. Chat - System Prompt Expert",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "api-key",
+            "value": "{{azure_openai_key}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Sei un esperto C# che spiega concetti in modo semplice usando analogie dal mondo reale.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Cos'è un delegate in C#?\"\n    }\n  ],\n  \"max_tokens\": 150,\n  \"temperature\": 0.7\n}"
+        },
+        "url": {
+          "raw": "{{azure_openai_endpoint}}/openai/deployments/{{deployment_name}}/chat/completions?api-version={{api_version}}",
+          "host": [
+            "{{azure_openai_endpoint}}"
+          ],
+          "path": [
+            "openai",
+            "deployments",
+            "{{deployment_name}}",
+            "chat",
+            "completions"
+          ],
+          "query": [
+            {
+              "key": "api-version",
+              "value": "{{api_version}}"
+            }
+          ]
+        },
+        "description": "Test con system prompt per definire il comportamento del modello"
+      },
+      "response": []
+    },
+    {
+      "name": "6. Chat - Multi-turn Conversation",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "api-key",
+            "value": "{{azure_openai_key}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Sei un assistente tecnico che aiuta gli sviluppatori C#.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Come creo una lista generica in C#?\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"Puoi creare una lista generica usando List<T>. Esempio: List<int> numeri = new List<int>();\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"E come aggiungo elementi a questa lista?\"\n    }\n  ],\n  \"max_tokens\": 100,\n  \"temperature\": 0.7\n}"
+        },
+        "url": {
+          "raw": "{{azure_openai_endpoint}}/openai/deployments/{{deployment_name}}/chat/completions?api-version={{api_version}}",
+          "host": [
+            "{{azure_openai_endpoint}}"
+          ],
+          "path": [
+            "openai",
+            "deployments",
+            "{{deployment_name}}",
+            "chat",
+            "completions"
+          ],
+          "query": [
+            {
+              "key": "api-version",
+              "value": "{{api_version}}"
+            }
+          ]
+        },
+        "description": "Esempio di conversazione multi-turno. Nota come include la cronologia completa."
+      },
+      "response": []
+    },
+    {
+      "name": "7. Chat - JSON Response",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "api-key",
+            "value": "{{azure_openai_key}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Rispondi sempre con JSON valido. Non aggiungere testo fuori dal JSON.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Dammi 3 linguaggi di programmazione con loro caratteristiche principali in formato JSON\"\n    }\n  ],\n  \"max_tokens\": 300,\n  \"temperature\": 0.3,\n  \"response_format\": {\n    \"type\": \"json_object\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{azure_openai_endpoint}}/openai/deployments/{{deployment_name}}/chat/completions?api-version={{api_version}}",
+          "host": [
+            "{{azure_openai_endpoint}}"
+          ],
+          "path": [
+            "openai",
+            "deployments",
+            "{{deployment_name}}",
+            "chat",
+            "completions"
+          ],
+          "query": [
+            {
+              "key": "api-version",
+              "value": "{{api_version}}"
+            }
+          ]
+        },
+        "description": "Richiesta di risposta in formato JSON usando response_format. Funziona con GPT-4 Turbo e GPT-4o."
+      },
+      "response": []
+    },
+    {
+      "name": "8. Chat - Code Generation",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "api-key",
+            "value": "{{azure_openai_key}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Sei un esperto sviluppatore C#. Scrivi codice pulito, commentato e con gestione errori.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Scrivi una classe C# per gestire un carrello della spesa con metodi per aggiungere, rimuovere prodotti e calcolare il totale.\"\n    }\n  ],\n  \"max_tokens\": 500,\n  \"temperature\": 0.2\n}"
+        },
+        "url": {
+          "raw": "{{azure_openai_endpoint}}/openai/deployments/{{deployment_name}}/chat/completions?api-version={{api_version}}",
+          "host": [
+            "{{azure_openai_endpoint}}"
+          ],
+          "path": [
+            "openai",
+            "deployments",
+            "{{deployment_name}}",
+            "chat",
+            "completions"
+          ],
+          "query": [
+            {
+              "key": "api-version",
+              "value": "{{api_version}}"
+            }
+          ]
+        },
+        "description": "Esempio di generazione codice. Temperature bassa per output deterministico."
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "azure_openai_endpoint",
+      "value": "https://YOUR-RESOURCE-NAME.openai.azure.com",
+      "type": "string"
+    },
+    {
+      "key": "azure_openai_key",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "deployment_name",
+      "value": "gpt-4o",
+      "type": "string"
+    },
+    {
+      "key": "api_version",
+      "value": "2024-08-01-preview",
+      "type": "string"
+    }
+  ]
+}
